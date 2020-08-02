@@ -1,0 +1,13 @@
+sudo: required
+
+services:
+- docker
+
+script:
+- docker build -t alanpeng/demo-psweb:$TRAVIS_BRANCH .
+
+deploy:
+  provider: script
+  script: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD && docker push alanpeng/demo-psweb:$TRAVIS_BRANCH
+  on:
+    all_branches: true
